@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Prediction Result</title>
+    
+    <!-- Leaflet CSS & JS for Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 28px;
+            background: #ff4c4c;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0px 0px 10px rgba(255, 76, 76, 0.6);
+        }
+
+        p {
+            font-size: 20px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h3 {
+            margin-top: 30px;
+            font-size: 24px;
+            text-transform: uppercase;
+            background: #007bff;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .graph-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .graph-container img {
+            width: 45%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🚨 Crime Prediction Result 🚨</h2>
+    <br><br>
+    <p>📍 Predicted crime in <b>{{ City | default("Unknown") }}</b> on <b>{{ date | default("N/A") }}</b> is <b>{{ predicted_crime | default("No data") }}</b></p>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Graphs for Crime Trends -->
+    <h3>📊 Crime Growth & Future Trends</h3>
+    <div class="graph-container">
+        <img src="{{ past_crime_graph | default('static/default_past.png') }}" alt="Past Crime Growth">
+        <img src="{{ future_crime_graph | default('static/default_future.png') }}" alt="Future Crime Prediction">        
+    </div>
+<div><br><br>
+    <a href="/" style="
+        text-decoration: none;
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 18px;
+        box-shadow: 0px 0px 10px rgba(0, 255, 0, 0.5);
+    ">🏠 Go Back to Home Page</a>
+    </div>
+    <script>
+        var lat = {{ lat | default(0) }};
+        var lon = {{ lon | default("0") | safe }};
+        var city = "{{ City | default('Unknown') }}";
+
+        if (lat !== 0 && lon !== 0) {
+            var map = L.map('map').setView([lat, lon], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.marker([lat, lon]).addTo(map).bindPopup(`📌 Predicted Crime: <b>${city}</b>`).openPopup();
+        } else {
+            document.getElementById('map').innerHTML = "<p>No location data available</p>";
+        }
+    </script>
+
+</body>
+</html>

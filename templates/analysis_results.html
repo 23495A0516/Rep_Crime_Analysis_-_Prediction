@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Analysis Result</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            background: linear-gradient(to right, #141E30, #243B55); /* Dark blue gradient */
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Container Box */
+        .container {
+            width: 80%;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.5); /* Cyan glow effect */
+            margin-top: 30px;
+            animation: fadeIn 1.2s ease-in-out;
+            border: 2px solid rgba(0, 255, 255, 0.4);
+        }
+        
+        /* Headings */
+        h2 {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0, 255, 255, 0.7);
+        }
+        
+        /* Paragraphs */
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        
+        /* Map Styling */
+        #map {
+            height: 450px;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        /* Animated Button */
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #00FFFF; /* Neon cyan */
+            background: rgba(0, 0, 0, 0.8);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.6);
+        }
+        
+        .btn:hover {
+            background: #00FFFF;
+            color: black;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
+        }
+        
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Crime Analysis Report</h2>
+        <p><strong>City:</strong> {{ City }}</p>
+        <p><strong>Crime Type:</strong> {{ Crime_Type }}</p>
+        <p><strong>Crime Rate:</strong> {{ Crime_Rate }}</p>
+        <p><strong>Crime Count:</strong> {{ Crime_Count }}</p>
+
+        <h3>Crime Location on Map</h3>
+        <div id="map"></div>
+
+        <a href="/" class="btn">Go to Home</a>
+    </div>
+
+    <script>
+        var map = L.map('map').setView([{{ lat }}, {{ lon }}], 12);
+        
+        // Use Esri Satellite view
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '&copy; Esri &mdash; Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community'
+        }).addTo(map);
+
+        var marker = L.marker([{{ lat }}, {{ lon }}]).addTo(map)
+            .bindPopup("<b>{{ City }}</b><br>Crime: {{ Crime_Type }}<br>Rate: {{ Crime_Rate }}<br>Count: {{ Crime_Count }}")
+            .openPopup();
+
+        // Adding animation to marker
+        setTimeout(() => {
+            marker.openPopup();
+        }, 1500);
+    </script>
+
+</body>
+</html>

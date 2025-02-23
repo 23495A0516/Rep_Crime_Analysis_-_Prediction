@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crime Analysis and Prediction</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <script src="/static/js/scripts.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Crime Analysis and Prediction📈</h1>
+        <p id="currentTime"></p>
+    </header>
+    <div class="start-div">
+        <marquee behavior="scroll" direction="left" scrollamount="10" style="color:black; font-size:20px; font-weight:bolder; text-align:center;">
+            "Crime analysis is the key to preventing the next offense" &nbsp;&nbsp;&nbsp;
+            "Data is the modern crime fighter" &nbsp;&nbsp;&nbsp;
+            "Predictions based on patterns can make the world safer" &nbsp;&nbsp;&nbsp;
+            "The more data we analyze, the fewer crimes we let slip by📈"
+        </marquee>
+    </div>
+    <div class="clear : both"></div><br><br><br><br>
+    <div class="photo-container">
+       <img src="/static/images/img1.jpeg" alt="Photo 3" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img2.jpeg" alt="Photo 1" style="width:200px; padding-right:2px; padding-left: 2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img3.jpeg" alt="Photo 2" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img4.jpeg" alt="Photo 4" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img5.jpeg" alt="Photo 5" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img6.jpeg" alt="Photo 6" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img7.jpeg" alt="Photo 7" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img8.jpeg" alt="Photo 8" style="width:200px; padding-right:2px;padding-left: 2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img9.jpeg" alt="Photo 9" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img10.jpg" alt="Photo 10" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img11.jpeg" alt="Photo 11" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img12.jpeg" alt="Photo 12" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img13.jpeg" alt="Photo 13" style="width:200px; padding-right:2px; background-color:#7c0303;"></a>
+       <img src="/static/images/img14.jpeg" alt="Photo 14" style="width: 200px; padding-right:2px; background-color:#7c0303;"></a>
+    </div>
+   <main>
+        <section id="data-input">
+            <h2>Upload New Crime Data</h2>
+            <form id="upload-form" method="POST" action="/upload">
+                <div class="upload-div">
+                    <label for="crime_type">Type of Crime:</label>
+                    <select id="crime-type" name="crimeType" required>
+                        <option value="theft">Theft</option>
+                        <option value="harassment">Harassment</option>
+                        <option value="assault">Assault</option>
+                        <option value="murder">Murder</option>
+                        <option value="burglary">Burglary</option>
+                        <option value="robbery">Robbery</option>
+                        <option value="vandalism">Vandalism</option>
+                        <option value="Kidnapping & Abduction">Kidnapping & Abduction</option>
+                        <option value="Attempt to Murder">Attempt to Murder</option>
+                        <option value="Forgery">Forgery</option>
+                        <option value="Drug Trafficking">Drug Trafficking</option>
+                        <option value="Public Nuisance">Public Nuisance</option>
+                        <option value="Cyber Crime">Cyber Crime</option>
+                        <option value="Human Trafficking">Human Trafficking</option>
+                        <option value="Smuggling">Smuggling</option>
+                        <option value="Reckless Driving">Reckless Driving</option>
+                        <option value="Blackmail">Other</option>
+                        <option value="Piracy ">Piracy </option>
+                        <option value="Forced Marriage">Forced Marriage</option>
+                    </select>
+                    <br><br>
+                    <label for="incident-date"><br>Incident Date:</label>
+                    <input type="date" id="incident-date" name="incidentDate" required>
+                    <br><br>
+                    <label for="incident-time"><br>Incident Time:</label>
+                    <input type="time" id="incident-time" name="incidentTime" required><br>
+                    <br><br>
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter Location" required>
+                    <br><br>
+                    <br><button type="submit">Upload Crime Data</button>
+                </div>
+            </form>
+        </section>
+    </div> 
+   </main>
+    <div class="clear : both"></div>
+    <section id="analysis">
+        <form class="analysis-form" id="crimeForm" action="/analyze" method="POST">
+            <h3 style="color: #5bbfe3; text-transform: uppercase; text-align: center;">🔍 Analyze Past Crime Data</h3>
+    
+            <label for="City"><strong>📍 Enter City:</strong></label>
+            <input type="text" id="City" name="City" required placeholder="Enter City Name" autocomplete="off">
+            <br><br>
+    
+            <label for="Crime_Type"><strong>⚖️ Select Crime Type:</strong></label>
+            <select id="Crime_Type" name="Crime_Type" required>
+                <option value="" disabled selected>-- Choose a Crime Type --</option>
+                <option value="theft">🛑 Theft</option>
+                <option value="harassment">⚠️ Harassment</option>
+                <option value="assault">👊 Assault</option>
+                <option value="burglary">🏠 Burglary</option>
+                <option value="robbery">💰 Robbery</option>
+                <option value="vandalism">🚧 Vandalism</option>
+                <option value="murder">⚰️ Murder</option>
+                <option value="Kidnapping & Abduction">🚨 Kidnapping & Abduction</option>
+                <option value="Attempt to Murder">🔪 Attempt to Murder</option>
+                <option value="Forgery">📜 Forgery</option>
+                <option value="Drug Trafficking">💊 Drug Trafficking</option>
+                <option value="Public Nuisance">📢 Public Nuisance</option>
+                <option value="Cyber Crime">💻 Cyber Crime</option>
+                <option value="Human Trafficking">🧑‍🤝‍🧑 Human Trafficking</option>
+                <option value="Smuggling">🚢 Smuggling</option>
+                <option value="Reckless Driving">🚗 Reckless Driving</option>
+                <option value="Piracy">🎥 Piracy</option>
+                <option value="Forced Marriage">💍 Forced Marriage</option>
+                <option value="Other">❓ Other</option>
+            </select>
+            <br><br>
+    
+            <button type="submit" id="analyze-button">🔎 Analyze Now</button>
+        </form>
+    </section>
+    
+    
+
+
+    
+    <div class="clear : both"></div>
+    <section id="prediction">
+        <form class="prediction-form" id="crime-prediction-form" action="/predict" method="POST">
+            <h2>🔮 Predict Future Crime</h2>
+    
+            <label for="city">🏙 City:</label>
+            <input type="text" id="city" name="City" required placeholder="Enter City Name">
+            <br><br>
+            <label for="date">📅 Select Date:</label>
+            <input type="date" id="prediction-date" name="date" required>
+            <br><br>
+            <button type="submit" id="predict-button">🔍 Predict</button>
+        </form>
+        
+        <div id="prediction-result"></div>
+    </section>
+
+
+    <footer>
+        <div class="feedback-section">
+            <h2>Feedback Section</h2>
+            <form action="/submit_feedback" method="post">
+                <input type="text" name="name" placeholder="Your Name" required><br><br>
+                <input type="email" name="email" placeholder="Your Email" required><br><br>
+                <input type="feedback" name="feedback" placeholder="Your Feedback" required><br>
+                <!-- <br><textarea name="feedback" placeholder="Your Feedback" rows="10" cols="20" required></textarea> -->
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+<div class="clear : both"></div>
+        <div class="bottom-div">
+        </div><br><br>
+        <div class="links-div">
+            <ul class="container">
+                <form id="serviceRequestForm">
+                    <label for="serviceType">Our_Social_Media_Links:</label>                
+                <br><li class="items"><a href="https://www.instagram.com/crime_analysis551/?utm_source=ig_web_button_share_sheet">Instagram <img src="/static/images/Instalogo.jpeg" alt="Instagram"></a></li>
+                <li class="items"><a href="https://www.facebook.com/profile.php?id=61564244626392">Facebook <img src="/static/images/FBlogo.jpeg" alt="Facebook"></a> </li>
+                <li class="items"><a href="https://x.com/Crimealytics?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Twitter<img src="/static/images/tvterlogo.jpeg" alt="Twitter"></a> </li>
+            </ul>
+            </div>
+            <br>
+        <p>&copy; 2025 Qis Crime Analysis and Prediction Tool. All rights reserved.</p>
+        </footer>
+</body>
+</html>
