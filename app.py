@@ -59,10 +59,20 @@ crime_prediction_model = CrimePredictionNN(input_size)
 crime_prediction_model.load_state_dict(torch.load("models/crime_prediction_model.pth"))
 crime_prediction_model.eval()
 
-# MongoDB connection
+"""# MongoDB connection
 client = MongoClient('mongodb://localhost:27017/')
 db = client['crime_analysis']
-crime_data_collection = db['crime_data']
+crime_data_collection = db['crime_data']"""
+
+# MongoDB connection
+try:
+    client = MongoClient('mongodb://localhost:27017/', serverSelectionTimeoutMS=5000)  # 5s timeout
+    client.server_info()  # Force connection check
+    db = client['crime_analysis']
+    crime_data_collection = db['crime_data']
+except Exception as e:
+    print("❌ MongoDB Connection Error:", e)
+    db = None  # Avoid crashing app if MongoDB fails
 
 @app.route('/')
 def index():
