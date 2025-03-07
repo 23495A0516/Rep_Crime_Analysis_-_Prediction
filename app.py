@@ -9,6 +9,7 @@ import tensorflow as tf
 import torch
 import torch.nn as nn
 import matplotlib
+# import qrcode
 matplotlib.use("Agg")  # Fix for Matplotlib GUI issues
 import torch.optim as optim
 from sklearn.ensemble import RandomForestRegressor
