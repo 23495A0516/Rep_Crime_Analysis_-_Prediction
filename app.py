@@ -64,15 +64,22 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['crime_analysis']
 crime_data_collection = db['crime_data']"""
 
-# MongoDB connection
+# MongoDB Atlas Connection
+import os
+from pymongo import MongoClient
+
+MONGO_URI = os.getenv("MONGO_URI")  # Load from environment
+
 try:
-    client = MongoClient('mongodb://localhost:27017/', serverSelectionTimeoutMS=5000)  # 5s timeout
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
     client.server_info()  # Force connection check
     db = client['crime_analysis']
     crime_data_collection = db['crime_data']
+    print("✅ Connected to MongoDB Atlas successfully!")
 except Exception as e:
     print("❌ MongoDB Connection Error:", e)
-    db = None  # Avoid crashing app if MongoDB fails
+    db = None
+
 
 @app.route('/')
 def index():
